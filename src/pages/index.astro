@@ -18,6 +18,36 @@ const posts = (await getCollection('blog')).sort(
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			main {
+				width: 960px
+			}
+			ul {
+				list-style-type: none;
+			}
+			li {
+				background-color: #ffffff; /* 背景を薄いグレーに */
+				color: #333;             /* 文字色を濃いグレーに */
+				padding: 10px;          /* 内側の余白を10pxに */
+				margin-bottom: 10px;     /* 下側に5pxの余白を設ける */
+				border-radius: 12px;
+			}
+			a {
+				display: flex;
+				text-decoration: none;
+			}
+			.image{
+				margin-left: auto; /* 左側のマージンを最大にして右に寄せる */
+			}
+			.title{
+				font-size:30px;
+				position:relative;
+				color: blue;	
+			}
+			.title:before{
+				
+			}
+			
+
+			/* main {
 				width: 960px;
 			}
 			ul {
@@ -65,13 +95,7 @@ const posts = (await getCollection('blog')).sort(
 					width: 100%;
 					text-align: center;
 				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
+			} */
 		</style>
 	</head>
 	<body>
@@ -83,13 +107,17 @@ const posts = (await getCollection('blog')).sort(
 						posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
+									<div class="string">
+										<h4 class="title">{post.data.title}</h4>
+										<p class="date">
+											<FormattedDate date={post.data.pubDate} />
+										</p>
+									</div>
+									<div class="image">
 									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+										<Image width={244.15} height={182} src={post.data.heroImage} alt="" />
 									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
+									</div>
 								</a>
 							</li>
 						))

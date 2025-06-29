@@ -16,6 +16,7 @@ const posts = (await getCollection('blog')).sort(
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=today" />
 		<style>
 			main {
 				width: 960px
@@ -39,63 +40,45 @@ const posts = (await getCollection('blog')).sort(
 			}
 			.title{
 				font-size:30px;
+				font-weight: bold;
 				position:relative;
-				color: blue;	
+				padding-left: 15px;     /* 線と文字の間の余白 */
 			}
-			.title:before{
+			.title::before {
+				content: "";
+				display: block;
+				width: 4px;             /* 線の幅 */
+				height: 70%;           /* 要素の高さに合わせる */
+				background-color: #699ef5; /* 線の色 */
+				border-radius: 3px;     /*  この行で角を丸くします */
 				
+				position: absolute;
+				left: 0;
+				top: 15%;
+			}
+
+			.date{
+				height: 1.25rem;
+				font-family: "Roboto";
+				font-size: 0.875rem;
+				font-weight: bold;
+				color: #7f7f7f;
+				padding-left: 1.0em; 
+			}
+			.material-symbols-outlined {
+				vertical-align: middle;
+				font-size: 1.25em;
+				color: #4671b7;
+				background-color: #e5efff;
+				border-radius: 5px;     /* この行で角を丸くします */
+				padding: 0.35rem; 
+				font-variation-settings:
+				'FILL' 0,
+				'wght' 400,
+				'GRAD' 0,
+				'opsz' 24
 			}
 			
-
-			/* main {
-				width: 960px;
-			}
-			ul {
-				display: grid;
-				gap: 1rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(100%);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-			} */
 		</style>
 	</head>
 	<body>
@@ -110,7 +93,7 @@ const posts = (await getCollection('blog')).sort(
 									<div class="string">
 										<h4 class="title">{post.data.title}</h4>
 										<p class="date">
-											<FormattedDate date={post.data.pubDate} />
+											<span class="material-symbols-outlined">today</span><FormattedDate date={post.data.pubDate} />
 										</p>
 									</div>
 									<div class="image">

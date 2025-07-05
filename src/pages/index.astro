@@ -6,6 +6,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
+import Profile from '../components/Profile.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -78,36 +79,56 @@ const posts = (await getCollection('blog')).sort(
 				'GRAD' 0,
 				'opsz' 24
 			}
+
+			.container {
+				display: flex;
+				gap: 2rem; /* コンテンツとサイドバーの間隔 */
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 1.5rem;
+			}
+			aside {
+				flex: 1; /* サイドバーの幅の割合 */
+				position: sticky; /* スクロールしてもサイドバーが追従するように */
+				top: 2rem;
+				height: fit-content;
+			}
 			
 		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									<div class="string">
-										<h4 class="title">{post.data.title}</h4>
-										<p class="date">
-											<span class="material-symbols-outlined">today</span><FormattedDate date={post.data.pubDate} />
-										</p>
-									</div>
-									<div class="image">
-									{post.data.heroImage && (
-										<Image width={244.15} height={182} src={post.data.heroImage} alt="" />
-									)}
-									</div>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
+		<div class="container">
+			<main>
+				<section>
+					<ul>
+						{
+							posts.map((post) => (
+								<li>
+									<a href={`/blog/${post.id}/`}>
+										<div class="string">
+											<h4 class="title">{post.data.title}</h4>
+											<p class="date">
+												<span class="material-symbols-outlined">today</span><FormattedDate date={post.data.pubDate} />
+											</p>
+										</div>
+										<div class="image">
+										{post.data.heroImage && (
+											<Image width={244.15} height={182} src={post.data.heroImage} alt="" />
+										)}
+										</div>
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</section>
+			</main>
+			 <aside>
+				<Profile />
+			</aside>
+
+		</div>
 		<Footer />
 	</body>
 </html>

@@ -93,6 +93,16 @@ const posts = (await getCollection('blog')).sort(
 				top: 2rem;
 				height: fit-content;
 			}
+
+			/* スマートフォンなどの小さい画面向けの対応 */
+			@media (max-width: 960px) {
+				.container {
+				flex-direction: column; /* 縦並びにする */
+				}
+				aside {
+				position: static; /* stickyを解除 */
+				}
+			}
 			
 		</style>
 	</head>
